@@ -3,26 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REGISTRO MATERIAS</title>
+    <title>Marcas</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
 </head>
 <body>
 
     <div class="container mt-4">
-        <h3>Registro de Materias</h3>
+        <h3>Editar Marcas</h3>
 
         <div class="row">
-            <!-- columna de la tabla de registro -->
+            
             <div class="col col-md-6">
 
-                <!-- Formulario -->
-                <form action="{{ url_for('guardarMateria') }}" method="post">
+                
+                <form action="{{ url_for('actualizarMarca') }}" method="post">
                     <div class="card">
-                        <div class="card-header bg-info text-white">Formulario</div>
+                        <div class="card-header bg-info text-white">Información del registro</div>
                         <div class="card-body">
                             <div class="form-group">
+                                <input type="hidden" name="txtIdMarca" value="{{ marca['id'] }}">
                                 <label for="txtDescripcion">Descripción:</label>
-                                <input type="text" class="form-control" placeholder="Ingrese el nombre de la materia" name="txtDescripcion" id="txtDescripcion">
+                                <input type="text" class="form-control" placeholder="Ingrese alguna marca" name="txtDescripcion" id="txtDescripcion" value="{{ marca['descripcion'] }}">
                             </div>
                          
                             {# Este bloque busca el mensaje de error#}
@@ -38,7 +39,7 @@
 
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-success" name="btnGuardar" id="btnGuardar">Guardar</button>
+                            <button type="submit" class="btn btn-primary" name="btnGuardar" id="btnGuardar">Actualizar</button>
                         </div>
                     </div>
                 </form>

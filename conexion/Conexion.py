@@ -1,7 +1,7 @@
 import psycopg2
 class Conexion:
 
-    """Metodo contructor de la materia
+    """Metodo contructor de la marcas
     """
     def __init__(self):
         self.con = psycopg2.connect("dbname=examenbd user=postgres host=localhost password=13579")

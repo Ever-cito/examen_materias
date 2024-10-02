@@ -1,70 +1,70 @@
-from flask import Flask, render_template, request, redirect, url_for,flash
-from dao.MateriaDao import MateriaDao
+from flask import Flask, render_template, request, redirect, url_for, flash
+from dao.MarcaDao import MarcaDao
 
 app = Flask(__name__)
 
 # flash requiere esta sentencia
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
-# INICIO-MATERIAS
+# INICIO-MARCAS
 
-@app.route('/materias-index')
-def materias_index():
-    #creacion de la instancia de materiadao
-    materiasDao = MateriaDao()
-    lista_materias = materiasDao.getMaterias()
-    return render_template('materias/materias-index.html', lista_materias=lista_materias)
+@app.route('/marcas-index')
+def marcas_index():
+    #creacion de la instancia de marcadao
+    marcasDao = MarcaDao()
+    lista_marcas = marcasDao.getMarcas()
+    return render_template('marcas/marcas-index.html', lista_marcas=lista_marcas)
 
-@app.route('/materias')
-def materias():
-    return render_template('materias/materias.html')
+@app.route('/marcas')
+def marcas():
+    return render_template('marcas/marcas.html')
 
-@app.route('/guardar-materia', methods=['POST'])
-def guardarMateria():
-    materia = request.form.get('txtDescripcion').strip()
-    if materia == None or len(materia) < 1:
+@app.route('/guardar-marca', methods=['POST'])
+def guardarMarca():
+    marca = request.form.get('txtDescripcion').strip()
+    if marca == None or len(marca) < 1:
        # mostrar un mensaje al usuario
        flash('Debe escribir algo en la descripcion', 'warning')
     
-       # redireccionar a la vista materias
-       return redirect(url_for('materias'))
+       # redireccionar a la vista marcas
+       return redirect(url_for('marcas'))
     
-    materiadao = MateriaDao()
-    materiadao.guardarMateria(materia.upper())
+    marcadao = MarcaDao()
+    marcadao.guardarMarca(marca.upper())
 
     # mostrar un mensaje al usuario
     flash('Guardado exitoso', 'success')
 
-    # redireccionar a la vista materias
-    return redirect(url_for('materias_index'))
+    # redireccionar a la vista marcas
+    return redirect(url_for('marcas_index'))
 
-@app.route('/materias-editar/<id>')
-def materiasEditar(id):
-    materiadao = MateriaDao()
-    return render_template('materias/materias editar.html', materia=materiadao.getMateriaById(id))
+@app.route('/marcas-editar/<id>')
+def marcasEditar(id):
+    marcadao = MarcaDao()
+    return render_template('marcas/marcas editar.html', marca=marcadao.getMarcaById(id))
 
-@app.route('/actualizar-materia', methods=['POST'])
-def actualizarMateria():
-    id = request.form.get('txtIdMateria')
+@app.route('/actualizar-marca', methods=['POST'])
+def actualizarMarca():
+    id = request.form.get('txtIdMarca')
     descripcion = request.form.get('txtDescripcion').strip()
 
     if descripcion == None or len(descripcion) == 0:
         flash('No debe estar vacia la descripcion')
-        return redirect(url_for('materiasEditar', id=id))
+        return redirect(url_for('marcasEditar', id=id))
 
     # actualizar
-    materiadao = MateriaDao()
-    materiadao.updateMateria(id, descripcion.upper())
+    marcadao = MarcaDao()
+    marcadao.updateMarca(id, descripcion.upper())
 
-    return redirect(url_for('materias_index'))
+    return redirect(url_for('marcas_index'))
 
-@app.route('/materias-eliminar/<id>')
-def materiasEliminar(id):
-    materiadao = MateriaDao()
-    materiadao.deleteMateria(id)
-    return redirect(url_for('materias_index'))
-# FIN-MATERIAS
+@app.route('/marcas-eliminar/<id>')
+def marcasEliminar(id):
+    marcadao = MarcaDao()
+    marcadao.deleteMarca(id)
+    return redirect(url_for('marcas_index'))
+# FIN-MARCAS
 
 # se pregunta por el proceso principal
-if __name__=='__main__':
+if __name__ == '__main__':
     app.run(debug=True)

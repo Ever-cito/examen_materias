@@ -2,25 +2,25 @@
 from flask import current_app as app
 from conexion.Conexion import Conexion 
 
-class MateriaDao:
+class MarcaDao:
     
-    def getMaterias(self):
+    def getMarcas(self):
 
-        materiaSQL = """
+        marcaSQL = """
         SELECT id, descripcion
-        FROM materias
+        FROM marcas
         """
         #objeto conexion
         conexion = Conexion()
         con = conexion.getConexion()
         cur = con.cursor()
         try:
-          cur.execute(materiaSQL)
+          cur.execute(marcaSQL)
           #trae datos de db
-          lista_materias = cur.fetchall()
+          lista_marcas = cur.fetchall()
           #retorno de datos
           lista_ordenada = []
-          for item in lista_materias:
+          for item in lista_marcas:
               lista_ordenada.append({
                   "id": item[0],
                   "descripcion": item[1]
@@ -32,24 +32,24 @@ class MateriaDao:
             cur.close()
             con.close()
 
-    def getMateriaById(self, id):
+    def getMarcaById(self, id):
 
-        materiaSQL = """
+        marcaSQL = """
         SELECT id, descripcion
-        FROM materias WHERE id=%s
+        FROM marcas WHERE id=%s
         """
         #objeto conexion
         conexion = Conexion()
         con = conexion.getConexion()
         cur = con.cursor()
         try:
-          cur.execute(materiaSQL, (id,))
+          cur.execute(marcaSQL, (id,))
           #trae datos de db
-          materiaEncontrada = cur.fetchone()
+          marcaEncontrada = cur.fetchone()
           #retorno de datos
           return {
-                    "id": materiaEncontrada[0],
-                    "descripcion": materiaEncontrada[1]
+                    "id": marcaEncontrada[0],
+                    "descripcion": marcaEncontrada[1]
                 }
         except con.Error as e:
              app.logger.info(e)
@@ -57,10 +57,10 @@ class MateriaDao:
             cur.close()
             con.close()
 
-    def guardarMateria(self, descripcion):
+    def guardarMarca(self, descripcion):
         
-        insertMateriaSQL = """
-        INSERT INTO materias(descripcion) VALUES(%s)
+        insertMarcaSQL = """
+        INSERT INTO marcas(descripcion) VALUES(%s)
         """
 
         conexion = Conexion()
@@ -69,7 +69,7 @@ class MateriaDao:
 
         #Ejecucion exitosa
         try:
-            cur.execute(insertMateriaSQL, (descripcion,))
+            cur.execute(insertMarcaSQL, (descripcion,))
             #se confirma la isercion
             con.commit()
 
@@ -86,10 +86,10 @@ class MateriaDao:
 
         return False    
           
-    def updateMateria(self, id, descripcion):
+    def updateMarca(self, id, descripcion):
 
-        updateMateriaSQL = """
-        UPDATE materias
+        updateMarcaSQL = """
+        UPDATE marcas
         SET descripcion=%s
         WHERE id=%s
         """
@@ -100,7 +100,7 @@ class MateriaDao:
 
         # Ejecucion exitosa
         try:
-            cur.execute(updateMateriaSQL, (descripcion, id,))
+            cur.execute(updateMarcaSQL, (descripcion, id,))
             # se confirma la insercion
             con.commit()
 
@@ -117,10 +117,10 @@ class MateriaDao:
 
         return False
     
-    def deleteMateria(self, id):
+    def deleteMarca(self, id):
 
-        updateMateriaSQL = """
-        DELETE FROM materias
+        updateMarcaSQL = """
+        DELETE FROM marcas
         WHERE id=%s
         """
 
@@ -130,7 +130,7 @@ class MateriaDao:
 
         # Ejecucion exitosa
         try:
-            cur.execute(updateMateriaSQL, (id,))
+            cur.execute(updateMarcaSQL, (id,))
             # se confirma la insercion
             con.commit()
 
@@ -145,5 +145,4 @@ class MateriaDao:
             cur.close()
             con.close()
 
-        return False        
-    
+        return False

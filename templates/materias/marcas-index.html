@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Materias</title>
+    <title>Marcas</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
 </head>
 <body>
 
     <div class="container mt-4">
-        <h3>Listar Materias</h3>
+        <h3>Listar Marcas</h3>
 
          <!-- Boton agregar -->
          <div class="row mb-2">
             <div class="col col-md-4">
-              <a href="{{ url_for('materias') }}" class="btn btn-outline-success">Agregar</a>
+              <a href="{{ url_for('marcas') }}" class="btn btn-outline-success">Agregar</a>
             </div>
           </div>
           <!--  -->
   
           <!-- Tabla -->
           <div class="row">
-              <!-- columna de la lista materia-->
+              <!-- columna de la lista marca-->
               <div class="col col-md-12">
   
                   <table class="table table-striped">
@@ -32,16 +32,16 @@
                         </tr>
                       </thead>
                       <tbody>
-                        {% for item in lista_materias %} 
+                        {% for item in lista_marcas %} 
                         <tr>
                           <td>{{ item['descripcion'] }}</td>
                           <td>
                             <div class="row">
                               <div class="col col-md-2">
-                                <a href="{{ url_for('materiasEditar', id=item['id']) }}" class="btn btn-success">Editar</a>
+                                <a href="{{ url_for('marcasEditar', id=item['id']) }}" class="btn btn-success">Editar</a>
                               </div>
                               <div class="col col-md-2">
-                                <a href="{{ url_for('materiasEliminar', id=item['id']) }}" class="btn btn-danger">Eliminar</a>
+                                <a href="{{ url_for('marcasEliminar', id=item['id']) }}" class="btn btn-danger">Eliminar</a>
                             </div>
                               </div>
                             </div>
